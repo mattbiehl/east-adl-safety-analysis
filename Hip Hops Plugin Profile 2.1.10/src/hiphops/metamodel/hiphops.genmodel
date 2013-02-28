@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/hiphops/src"
+    modelPluginID="hiphops" modelName="Hiphops" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="6.0" copyrightFields="false">
+  <foreignModel>hiphops.ecore</foreignModel>
+  <genPackages prefix="Hiphops" disposableProviderFactory="true" ecorePackage="hiphops.ecore#/">
+    <genClasses ecoreClass="hiphops.ecore#//Model">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hiphops.ecore#//Model/system"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hiphops.ecore#//Model/simulationX"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference hiphops.ecore#//Model/hazards"/>
+    </genClasses>
+    <genClasses ecoreClass="hiphops.ecore#//System">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hiphops.ecore#//System/component"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hiphops.ecore#//System/lines"/>
+    </genClasses>
+    <genClasses ecoreClass="hiphops.ecore#//Component">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hiphops.ecore#//Component/ports"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hiphops.ecore#//Component/componentType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hiphops.ecore#//Component/implementation"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hiphops.ecore#//Component/allocation"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference hiphops.ecore#//Component/impalternatives"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference hiphops.ecore#//Component/allocalternatives"/>
+    </genClasses>
+    <genClasses ecoreClass="hiphops.ecore#//Port">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hiphops.ecore#//Port/portType"/>
+    </genClasses>
+    <genClasses ecoreClass="hiphops.ecore#//Implementation">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hiphops.ecore#//Implementation/fData"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hiphops.ecore#//Implementation/excludeFromOptimization"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hiphops.ecore#//Implementation/system"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hiphops.ecore#//Implementation/h_BlockType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hiphops.ecore#//Implementation/cost"/>
+    </genClasses>
+    <genClasses ecoreClass="hiphops.ecore#//FData">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hiphops.ecore#//FData/outputDeviations"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hiphops.ecore#//FData/basicEvents"/>
+    </genClasses>
+    <genClasses ecoreClass="hiphops.ecore#//OutputDeviation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hiphops.ecore#//OutputDeviation/defaultString"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hiphops.ecore#//OutputDeviation/systemOutPort"/>
+    </genClasses>
+    <genClasses ecoreClass="hiphops.ecore#//OutputDeviations">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hiphops.ecore#//OutputDeviations/outputDeviation"/>
+    </genClasses>
+    <genClasses ecoreClass="hiphops.ecore#//BasicEvent">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hiphops.ecore#//BasicEvent/defaultString"/>
+    </genClasses>
+    <genClasses ecoreClass="hiphops.ecore#//BasicEvents">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hiphops.ecore#//BasicEvents/basicEvent"/>
+    </genClasses>
+    <genClasses ecoreClass="hiphops.ecore#//NamedClass">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hiphops.ecore#//NamedClass/name"/>
+    </genClasses>
+    <genClasses ecoreClass="hiphops.ecore#//Line">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hiphops.ecore#//Line/connections"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hiphops.ecore#//Line/p1"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hiphops.ecore#//Line/p2"/>
+    </genClasses>
+    <genClasses ecoreClass="hiphops.ecore#//DescribedClass">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hiphops.ecore#//DescribedClass/description"/>
+    </genClasses>
+    <genClasses ecoreClass="hiphops.ecore#//AllocAlternative">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hiphops.ecore#//AllocAlternative/allocation"/>
+    </genClasses>
+    <genClasses ecoreClass="hiphops.ecore#//Hazard">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hiphops.ecore#//Hazard/safetyRequirement"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hiphops.ecore#//Hazard/severity"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hiphops.ecore#//Hazard/logic"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

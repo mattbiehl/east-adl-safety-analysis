@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ <copyright>
+ </copyright>
+
+ $Id$
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="hiphops.presentation.HiphopsModelWizardID"
+            name="%_UI_HiphopsModelWizard_label"
+            class="hiphops.presentation.HiphopsModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/HiphopsModelFile.gif">
+         <description>%_UI_HiphopsModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <editor
+            id="hiphops.presentation.HiphopsEditorID"
+            name="%_UI_HiphopsEditor_label"
+            icon="icons/full/obj16/HiphopsModelFile.gif"
+            extensions="hiphops"
+            class="hiphops.presentation.HiphopsEditor"
+            contributorClass="hiphops.presentation.HiphopsActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>

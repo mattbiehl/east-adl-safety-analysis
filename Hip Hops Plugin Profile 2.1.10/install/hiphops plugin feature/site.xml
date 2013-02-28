@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/Safety.Analysis.Plugin.Feature_2.1.14.jar" id="Safety.Analysis.Plugin.Feature" version="2.1.14">
+      <category name="Safety_Analysis"/>
+   </feature>
+   <category-def name="Safety_Analysis" label="Safety Analysis"/>
+</site>
