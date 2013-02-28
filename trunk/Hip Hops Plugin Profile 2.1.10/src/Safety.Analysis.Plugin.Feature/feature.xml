@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="Safety.Analysis.Plugin.Feature"
+      label="Safety Analysis Plug-In"
+      version="2.1.14"
+      provider-name="Royal Institute of Technology (KTH)">
+
+   <description url="http://www.example.com/description">
+      This plug-in requires that you have installed the following plug-ins:
+Papyrus
+Papyrus for EAST-ADL (&gt;2.1.10)
+M2M ATL SDK 3
+   </description>
+
+   <copyright>
+      Copyright Matthias Biehl, Royal Institute of Technology (KTH)
+2009-2010
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      Disclaimer of warranty
+Covered code is provided under this license on an &quot;as is&quot; basis,
+without warranty of any kind, either expressed or implied, including,
+without limitation, warranties that the covered code is free
+of defects, merchantable, fit for a particular purpose or non-infringing.
+The entire risk as to the quality and performance of the covered
+code is with you. Should any covered code prove defective in
+any respect, you (not the initial developer or any other contributor)
+assume the cost of any necessary servicing, repair or correction.
+This disclaimer of warranty constitutes an essential part of
+this license. No use of any covered code is authorized hereunder
+except under this disclaimer.
+   </license>
+
+   <requires>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.emf.ecore"/>
+      <import plugin="org.eclipse.emf.edit"/>
+      <import plugin="org.eclipse.core.resources" version="3.4.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.ecore.xmi"/>
+      <import plugin="org.eclipse.emf.edit.ui"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.junit"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.uml2"/>
+      <import plugin="org.eclipse.uml2.uml"/>
+      <import plugin="org.eclipse.m2m.atl.engine.vm"/>
+      <import plugin="org.eclipse.m2m.atl.core" version="3.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.m2m.atl.core.emf" version="3.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.jdt.core" version="3.4.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.m2m.atl.common"/>
+      <import plugin="org.eclipse.m2m.atl.drivers.emf4atl"/>
+      <import plugin="org.eclipse.m2m.atl.engine"/>
+      <import plugin="org.eclipse.papyrus.eastadl" version="2.1.8" match="greaterOrEqual"/>
+   </requires>
+
+   <plugin
+         id="hiphops"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="hiphops.edit"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="hiphops.editor"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="hiphops.tests"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="SafetyAnalysisPlugin"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

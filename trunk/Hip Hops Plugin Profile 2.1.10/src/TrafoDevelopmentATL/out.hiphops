@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:hiphops="http://md.kth.se/hiphops">
+  <hiphops:Model/>
+  <hiphops:Model>
+    <system name="Err_SW" description="Err_SW">
+      <component name="sensor" allocation="Err_HW::hw_1">
+        <ports name="Port_0" portType="Port_0"/>
+        <implementation name="sensor" h_BlockType="Both">
+          <fData>
+            <outputDeviations>
+              <outputDeviation name="O-Port_0" defaultString="internalSpeedsensorFault OR FromAllocation(O-Port_HW_1)"/>
+            </outputDeviations>
+            <basicEvents>
+              <basicEvent name="internalSpeedsensorFault" defaultString="None {}"/>
+            </basicEvents>
+          </fData>
+          <system name="SpeedSensor" description="SpeedSensor"/>
+        </implementation>
+      </component>
+      <component name="btn" allocation="Err_HW::hw_3">
+        <ports name="Port_3" portType="Port_3"/>
+        <implementation name="btn" h_BlockType="Both">
+          <fData>
+            <outputDeviations>
+              <outputDeviation name="O-Port_3" defaultString="internalButtonFault OR FromAllocation(O-Port_HW_3)"/>
+            </outputDeviations>
+            <basicEvents>
+              <basicEvent name="internalButtonFault" defaultString="None {}"/>
+            </basicEvents>
+          </fData>
+          <system name="EPBButton" description="EPBButton"/>
+        </implementation>
+      </component>
+      <component name="ctrlr" allocation="Err_HW::hw_2">
+        <ports name="Port_2" portType="Port_2"/>
+        <ports name="sysout" portType="sysout"/>
+        <ports name="Port_0" portType="Port_0"/>
+        <ports name="Port_1" portType="Port_1"/>
+        <implementation name="ctrlr" h_BlockType="Both">
+          <fData>
+            <outputDeviations>
+              <outputDeviation name="O-sysout" defaultString="(O-Port_1 AND O-Port_0) AND FromAllocation(O-Port_HW_2)" systemOutPort="true"/>
+            </outputDeviations>
+            <basicEvents/>
+          </fData>
+          <system name="EPBController" description="EPBController"/>
+        </implementation>
+      </component>
+      <lines name="connection" p1="ctrlr.Port_1" p2="sensor.Port_0"/>
+      <lines name="connection" p1="ctrlr.Port_0" p2="btn.Port_3"/>
+    </system>
+    <system name="Err_HW" description="Err_HW">
+      <component name="hw_1" allocation="">
+        <ports name="Port_HW_1" portType="Port_HW_1"/>
+        <implementation name="hw_1" h_BlockType="Both">
+          <fData>
+            <outputDeviations>
+              <outputDeviation name="O-Port_HW_1" defaultString="internal_hw1"/>
+            </outputDeviations>
+            <basicEvents>
+              <basicEvent name="internal_hw1" defaultString="None {}"/>
+            </basicEvents>
+          </fData>
+          <system name="HW_1" description="HW_1"/>
+        </implementation>
+      </component>
+      <component name="hw_2" allocation="">
+        <ports name="Port_HW_2" portType="Port_HW_2"/>
+        <implementation name="hw_2" h_BlockType="Both">
+          <fData>
+            <outputDeviations>
+              <outputDeviation name="O-Port_HW_2" defaultString="internal_hw2"/>
+            </outputDeviations>
+            <basicEvents>
+              <basicEvent name="internal_hw2" defaultString="None {}"/>
+            </basicEvents>
+          </fData>
+          <system name="HW_2" description="HW_2"/>
+        </implementation>
+      </component>
+      <component name="hw_3" allocation="">
+        <ports name="Port_HW_3" portType="Port_HW_3"/>
+        <implementation name="hw_3" h_BlockType="Both">
+          <fData>
+            <outputDeviations>
+              <outputDeviation name="O-Port_HW_3" defaultString="internal_hw3"/>
+            </outputDeviations>
+            <basicEvents>
+              <basicEvent name="internal_hw3" defaultString="None {}"/>
+            </basicEvents>
+          </fData>
+          <system name="HW_3" description="HW_3"/>
+        </implementation>
+      </component>
+    </system>
+  </hiphops:Model>
+</xmi:XMI>

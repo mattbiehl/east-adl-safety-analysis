@@ -1,0 +1,208 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?artifactRepository version='1.1.0'?>
+<repository name='Update Site' type='org.eclipse.equinox.p2.artifact.repository.simpleRepository' version='1.0.0'>
+  <properties size='2'>
+    <property name='p2.compressed' value='false'/>
+    <property name='p2.timestamp' value='1345728314671'/>
+  </properties>
+  <mappings size='3'>
+    <rule filter='(&amp; (classifier=osgi.bundle))' output='${repoUrl}/plugins/${id}_${version}.jar'/>
+    <rule filter='(&amp; (classifier=binary))' output='${repoUrl}/binary/${id}_${version}'/>
+    <rule filter='(&amp; (classifier=org.eclipse.update.feature))' output='${repoUrl}/features/${id}_${version}.jar'/>
+  </mappings>
+  <artifacts size='32'>
+    <artifact classifier='org.eclipse.update.feature' id='Safety.Analysis.Plugin.Feature' version='2.1.14'>
+      <properties size='2'>
+        <property name='download.contentType' value='application/zip'/>
+        <property name='download.size' value='1127'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='SafetyAnalysisPlugin' version='0.0.8'>
+      <properties size='2'>
+        <property name='artifact.size' value='0'/>
+        <property name='download.size' value='39429'/>
+      </properties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='Safety.Analysis.Plugin.Feature' version='2.1.8'>
+      <properties size='2'>
+        <property name='download.contentType' value='application/zip'/>
+        <property name='download.size' value='1142'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='SafetyAnalysisPlugin' version='0.0.3'>
+      <properties size='2'>
+        <property name='artifact.size' value='0'/>
+        <property name='download.size' value='37360'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='SafetyAnalysisPlugin' version='0.0.4'>
+      <properties size='2'>
+        <property name='artifact.size' value='0'/>
+        <property name='download.size' value='37305'/>
+      </properties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='Safety.Analysis.Plugin.Feature' version='2.1.2'>
+      <properties size='2'>
+        <property name='download.contentType' value='application/zip'/>
+        <property name='download.size' value='1205'/>
+      </properties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='Safety.Analysis.Plugin.Feature' version='2.1.9'>
+      <properties size='2'>
+        <property name='download.contentType' value='application/zip'/>
+        <property name='download.size' value='1142'/>
+      </properties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='Safety.Analysis.Plugin.Feature' version='1.0.0'>
+      <properties size='2'>
+        <property name='artifact.size' value='1018'/>
+        <property name='download.size' value='1018'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='SafetyAnalysisPlugin' version='0.0.2'>
+      <properties size='2'>
+        <property name='artifact.size' value='0'/>
+        <property name='download.size' value='53478'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='SafetyAnalysisPlugin' version='0.0.5'>
+      <properties size='2'>
+        <property name='artifact.size' value='0'/>
+        <property name='download.size' value='37336'/>
+      </properties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='Safety.Analysis.Plugin.Feature' version='2.1.7'>
+      <properties size='2'>
+        <property name='download.contentType' value='application/zip'/>
+        <property name='download.size' value='1127'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='hiphops.edit' version='0.0.1'>
+      <properties size='2'>
+        <property name='artifact.size' value='0'/>
+        <property name='download.size' value='45836'/>
+      </properties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='Safety.Analysis.Plugin.Feature' version='2.1.6'>
+      <properties size='2'>
+        <property name='download.contentType' value='application/zip'/>
+        <property name='download.size' value='1127'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='hiphops.editor' version='1.0.0'>
+      <properties size='2'>
+        <property name='artifact.size' value='0'/>
+        <property name='download.size' value='61202'/>
+      </properties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='Safety.Analysis.Plugin.Feature' version='2.1.3'>
+      <properties size='2'>
+        <property name='download.contentType' value='application/zip'/>
+        <property name='download.size' value='1204'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='SafetyAnalysisPlugin' version='0.0.11'>
+      <properties size='2'>
+        <property name='artifact.size' value='0'/>
+        <property name='download.size' value='38693'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='hiphops' version='0.0.1'>
+      <properties size='2'>
+        <property name='artifact.size' value='0'/>
+        <property name='download.size' value='48986'/>
+      </properties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='Safety.Analysis.Plugin.Feature' version='2.1.1'>
+      <properties size='2'>
+        <property name='download.contentType' value='application/zip'/>
+        <property name='download.size' value='1204'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='SafetyAnalysisPlugin' version='0.0.6'>
+      <properties size='2'>
+        <property name='artifact.size' value='0'/>
+        <property name='download.size' value='38771'/>
+      </properties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='Safety.Analysis.Plugin.Feature' version='2.1.13'>
+      <properties size='2'>
+        <property name='download.contentType' value='application/zip'/>
+        <property name='download.size' value='1126'/>
+      </properties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='Safety.Analysis.Plugin.Feature' version='2.1.4'>
+      <properties size='2'>
+        <property name='download.contentType' value='application/zip'/>
+        <property name='download.size' value='1204'/>
+      </properties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='Safety.Analysis.Plugin.Feature' version='2.1.10'>
+      <properties size='2'>
+        <property name='download.contentType' value='application/zip'/>
+        <property name='download.size' value='1144'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='SafetyAnalysisPlugin' version='0.0.9'>
+      <properties size='2'>
+        <property name='artifact.size' value='0'/>
+        <property name='download.size' value='39428'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='SafetyAnalysisPlugin' version='0.0.12'>
+      <properties size='2'>
+        <property name='artifact.size' value='0'/>
+        <property name='download.size' value='38708'/>
+      </properties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='Safety.Analysis.Plugin.Feature' version='2.1.5'>
+      <properties size='2'>
+        <property name='download.contentType' value='application/zip'/>
+        <property name='download.size' value='1238'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='SafetyAnalysisPlugin' version='0.0.14'>
+      <properties size='2'>
+        <property name='artifact.size' value='0'/>
+        <property name='download.size' value='38715'/>
+      </properties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='Safety.Analysis.Plugin.Feature' version='2.1.12'>
+      <properties size='2'>
+        <property name='download.contentType' value='application/zip'/>
+        <property name='download.size' value='1127'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='SafetyAnalysisPlugin' version='0.0.1'>
+      <properties size='3'>
+        <property name='artifact.size' value='38607'/>
+        <property name='download.size' value='38607'/>
+        <property name='download.contentType' value='application/zip'/>
+      </properties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='Safety.Analysis.Plugin.Feature' version='2.1.11'>
+      <properties size='2'>
+        <property name='download.contentType' value='application/zip'/>
+        <property name='download.size' value='1143'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='SafetyAnalysisPlugin' version='0.0.7'>
+      <properties size='2'>
+        <property name='artifact.size' value='0'/>
+        <property name='download.size' value='38637'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='hiphops.tests' version='1.0.0'>
+      <properties size='2'>
+        <property name='artifact.size' value='0'/>
+        <property name='download.size' value='15304'/>
+      </properties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='Safety.Analysis.Plugin.Feature' version='2.1.0'>
+      <properties size='2'>
+        <property name='download.contentType' value='application/zip'/>
+        <property name='download.size' value='792'/>
+      </properties>
+    </artifact>
+  </artifacts>
+</repository>

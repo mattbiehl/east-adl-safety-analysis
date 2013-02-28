@@ -1,0 +1,531 @@
+
+-- @nsURI east=http://www.papyrusuml.org/EAST-ADL2/1
+
+module atl_east_example;
+create HH : hiphops 
+from   EADL : east;
+
+helper context east!FunctionPrototype def : getErrorModelTypes() : Set(east!ErrorModelType) = 
+	east!ErrorModelType.allInstances();
+
+helper context east!FunctionPrototype def : test() : east!DesignFunctionType = 
+	--east!ErrorModelType.allInstances()->collect(e|e.target);
+	self.type;
+	
+--helper context east!ErrorModelType def : getLogicName() : String = 
+--	if (self.getErrorBehavior().oclIsUndefined()) then ''
+--	else 
+--	if (self.getErrorBehavior().failureLogic.oclIsUndefined()) then ''
+--	else 
+--		-- because faultFailuredisappeared in 2.1.1 self.getErrorBehavior().resolveFaultFailure().split('=').first().trim()
+--		self.getErrorBehavior().failureLogic.split('=').first().trim()
+--		endif
+--	endif;
+--
+--helper context east!ErrorModelType def : getLogicExp() : String = 
+--	if (self.getErrorBehavior().oclIsUndefined()) then ''
+--	else 
+--	if (self.getErrorBehavior().failureLogic.oclIsUndefined()) then ''
+--	else 
+--		-- because faultFailuredisappeared in 2.1.1 self.getErrorBehavior().resolveFaultFailure().split('=').last().trim()
+--		self.getErrorBehavior().failureLogic.split('=').last().trim()
+--	endif
+--	endif;
+	
+helper context east!ErrorBehavior def : getLogicName() : String = 
+		self.failureLogic.split('=').first().trim();
+
+helper context east!ErrorBehavior def : getLogicExp() : String = 
+		self.failureLogic.split('=').last().trim();
+
+helper context east!ErrorBehavior def : resolveFaultFailure() : String =
+	if (self.faultFailure.oclIsUndefined()) then self.failureLogic
+	else
+	self.faultFailure->iterate(ff;  s:String = self.failureLogic | 
+	if (ff.oclIsUndefined()) then s
+	else if (ff.base_Class.oclIsUndefined()) then s
+	else s.regexReplaceAll(ff.base_Class.name,ff.anomaly.base_Port.name) endif endif)
+	endif;
+	
+helper context east!ErrorModelType def : getExternalFailure() : Set(east!FailureOutPort) = 
+	self.failure;
+--  redundancy in DM, could also be accessed through the ErrorBehavior
+--	if (self.getErrorBehavior().oclIsUndefined()) then Set{}
+--	else 
+--		self.getErrorBehavior().externalFailure
+--	endif;
+
+
+helper context east!ErrorModelPrototype def : getExternalFailure() : Set(east!FailureOutPort) = 
+	if (self.type.oclIsUndefined()) then Set{}
+	else 
+	  self.type.failure
+	endif;
+
+helper context east!ErrorModelPrototype def : getExternalFault() : Set(east!FaultInPort) = 
+	if (self.type.oclIsUndefined()) then Set{}
+	else 
+	  self.type.externalFault
+	endif;
+
+
+helper context east!ErrorModelType def : getExternalFault() : Set(east!FaultInPort) = 
+	self.externalFault;
+--  redundancy in DM, could also be accessed through the ErrorBehavior
+--	if (self.getErrorBehavior().oclIsUndefined()) then Set{}
+--	else 
+--		self.getErrorBehavior().externalFault
+--	endif;
+	
+helper context east!ErrorModelPrototype def : getInternalFault() : Set(east!InternalFaultPrototype) = 
+	if (self.type.oclIsUndefined()) then Set{}
+	else 
+		self.type.getInternalFault()
+	endif;
+	
+helper context east!ErrorModelType def : getInternalFault() : Set(east!InternalFaultPrototype) = 
+	self.internalFault;
+--	if (self.getErrorBehavior().oclIsUndefined()) then Set{}
+--	else 
+--		self.getErrorBehavior().internalFault
+--	endif;
+
+helper context east!ErrorModelPrototype def : getProcessFault() : Set(east!ProcessFaultPrototype) = 
+	if (self.type.oclIsUndefined()) then Set{}
+	else
+		self.type.getProcessFault()
+	endif;
+
+helper context east!ErrorModelType def : getProcessFault() : Set(east!ProcessFaultPrototype) =
+	self.processFault;
+--	if (self.getErrorBehavior().oclIsUndefined()) then Set{}
+--	else 
+--		self.getErrorBehavior().processFault
+--	endif;
+
+helper context east!ProcessFaultPrototype def : getFaultName() : String = 
+	if (self.base_Property.oclIsUndefined()) then 
+		if (self.base_Class.oclIsUndefined()) then ''
+		else
+			self.base_Class.name
+		endif
+	else
+		self.base_Property.name
+	endif;
+
+helper context east!InternalFaultPrototype def : getFaultName() : String = 
+	if (self.base_Property.oclIsUndefined()) then 
+		if (self.base_Class.oclIsUndefined()) then ''
+		else
+			self.base_Class.name
+		endif
+	else
+		self.base_Property.name
+	endif;
+
+
+helper context east!ErrorModelType def : getErrorBehaviors() : Set(east!ErrorBehavior) = 
+	if (self.errorBehaviorDescription.oclIsUndefined()) then  Set{}
+	else 
+		self.errorBehaviorDescription
+	endif;
+
+helper context east!ErrorModelPrototype def : getErrorBehaviors() : Set(east!ErrorBehavior) = 
+	if (self.type.oclIsUndefined()) then Set{}
+	else 
+		self.type.getErrorBehaviors()
+	endif;
+
+helper context east!ErrorModelPrototype def : getType() : east!ErrorModelType = 
+	if (self.type.oclIsUndefined()) then OclUndefined
+	else 
+		self.type
+	endif;
+
+helper context east!ErrorModelPrototype def : test(x: east!FunctionAllocation) : Boolean =
+	if (x.allocatedElement.oclIsUndefined()) then false
+	else 
+		x.allocatedElement.base_Property = self.functionTarget->first() or x.allocatedElement = self.functionTarget->first() --changed
+	endif;
+
+helper context east!ErrorModelPrototype def : getNominalHWs() : Set(east!FunctionAllocation) = 
+	east!FunctionAllocation.allInstances()->select(e| self.test(e));
+
+helper context east!ErrorModelPrototype def : getNominalHW() : east!AllocationTarget = 
+	if (self.getNominalHWs().isEmpty()) then OclUndefined
+	else 
+		self.getNominalHWs()->first().target
+	endif;
+
+helper context east!ErrorModelPrototype def : getAllocation() : east!ErrorModelPrototype = 
+	if (self.functionTarget.oclIsUndefined()) then OclUndefined
+	else 
+		if (self.getNominalHW().oclIsUndefined()) then OclUndefined
+	else 
+		east!ErrorModelPrototype.allInstances()->select(f|f.hwTarget->includes(self.getNominalHW()))->last()
+	endif
+	endif;
+
+helper context east!ErrorModelPrototype def : getAllocationName() : String = 
+	if (self.getAllocation().oclIsUndefined()) then ''
+	else 
+		self.getAllocation().printPath()
+	endif;
+
+helper context east!ErrorModelPrototype def : parent() : east!ErrorModelType = 
+	east!ErrorModelType.allInstances()->select(f|f.part->includes(self))->last();
+
+helper context east!ErrorModelType def : parent() : east!ErrorModelPrototype = 
+	OclUndefined;
+-- if we want to go multiple levels of depth in the hierarchy:
+-- east!ErrorModelPrototype.allInstances()->select(f|f.part->includes(self))->first();
+
+helper context east!ErrorModelPrototype def : printPath() : String = 
+	if (self.parent().oclIsUndefined()) then self.base_Property.name
+	else 
+		self.parent().printPath()+'::'+self.base_Property.name
+	endif;
+
+helper context east!ErrorModelType def : printPath() : String = 
+	if (self.parent().oclIsUndefined()) then self.base_Class.name -- + '::' + self.base_Class.name
+	else 
+		self.parent().printPath()+'.'+self.base_Class.name
+	endif;
+
+helper context east!FunctionPrototype def : getErrorModelType() : east!ErrorModelType = 
+	east!ErrorModelType.allInstances()->select(e|e.target->first()= self.type)->first();
+
+helper context east!HardwareComponentPrototype def : getErrorModelTypeH() : east!ErrorModelType = 
+	east!ErrorModelType.allInstances()->select(e|e.hwTarget->first()= self.type)->first();
+
+helper context east!FaultFailurePort def: printFF(modelType: east!ErrorModelType) : String =
+	if ((modelType.failure->includes(self)) or (modelType.externalFault->includes(self))) then 
+			-- local variable
+			self.base_Port.name 			
+		else
+			-- get the prototypes corresponding to the connection ends
+			if modelType.part->size() > 0 then 
+				modelType.part->iterate(e; s:String='' |
+				if ((e.type.failure->includes(self)) or (e.type.externalFault->includes(self))) then
+					if s = '' then 
+						e.base_Property.name+'.'+self.base_Port.name
+					else 
+						s +',\r\n' + e.base_Property.name+'.'+self.base_Port.name 
+					endif
+				else
+					s
+				endif)
+			else
+				''
+			endif
+		endif;
+
+helper context east!FaultFailurePropagationLink def: fromPortName(emt: east!ErrorModelType) : String =
+	if (self.fromPort.oclIsUndefined()) then ''
+	else
+		if (self.fromPort.base_Port.oclIsUndefined()) then ''
+		else
+			self.fromPort.printFF(emt)
+		endif
+	endif;
+
+helper context east!FaultFailurePropagationLink def: toPortName(emt: east!ErrorModelType) : String =
+	if (self.toPort.oclIsUndefined()) then ''
+	else
+		if (self.toPort.base_Port.oclIsUndefined()) then ''
+		else
+			self.toPort.printFF(emt)
+		endif
+	endif;
+
+
+rule recursiveErrorModelTypeRule{
+	from
+		emt : east!ErrorModelType(
+			not emt.base_Class.oclIsUndefined())
+	to
+		sys : hiphops!System(
+			name <- emt.base_Class.name,
+			description <- emt.base_Class.name,
+			lines <- _lines,
+			component <- emt.part
+		),
+		_lines: distinct hiphops!Line foreach (propagation in emt.faultFailureConnector)(
+			name <- 'connection',
+			p2 <- propagation.fromPortName(emt),
+			p1 <- propagation.toPortName(emt)
+		)
+}
+
+rule recursiveErrorModelPrototypeRule{
+	from
+		emp : east!ErrorModelPrototype(
+			not emp.base_Property.oclIsUndefined())
+		to
+		_components: hiphops!Component (
+			name <- emp.base_Property.name,
+			allocation <- emp.getAllocationName(),
+			implementation <- _implementation,
+			ports <- Set{_ports1,_ports2}
+		),
+		_ports1: distinct hiphops!Port foreach (event in emp.getExternalFailure())(
+			portType <- event.base_Port.name,
+			name <- event.base_Port.name
+		),
+		_ports2: distinct hiphops!Port foreach (event in emp.getExternalFault())(
+			portType <- event.base_Port.name,
+			name <- event.base_Port.name
+		),
+		_implementation: hiphops!Implementation (
+			name <- emp.base_Property.name,
+			fData <- _fdata,
+			h_BlockType <- 'Both',
+			system <- emp.type --thisModule->resolveTemp(emp.type, 'sys')
+		),		
+		_fdata : hiphops!FData(
+			outputDeviations <- _outputDeviations, --Set{emp.type.description}
+			basicEvents <- _basicEvents 
+		),
+		_basicEvents : hiphops!BasicEvents (
+ 			basicEvent <- Set{_basicEvent1,_basicEvent2}
+		),
+		_basicEvent1 : distinct hiphops!BasicEvent foreach (iEE in emp.getInternalFault())(
+			name <- iEE.getFaultName(),
+			defaultString <- 'None {}'
+		),
+		_basicEvent2 : distinct hiphops!BasicEvent foreach (iEE in emp.getProcessFault())(
+			name <- iEE.getFaultName(),
+			defaultString <- 'None {}'
+		),
+		_outputDeviations : hiphops!OutputDeviations (
+			outputDeviation <- _outputDeviation  
+		),
+		_outputDeviation : distinct hiphops!OutputDeviation foreach (o in emp.getErrorBehaviors())(
+			name <- o.getLogicName(),
+			systemOutPort <- o.getLogicName().indexOf('sysout')>-1,
+			defaultString <- o.getLogicExp()
+		)
+}
+
+
+
+rule Start {
+	from 
+		sm : east!DesignLevel(
+			not (sm.functionalDesignArchitecture.getErrorModelType().oclIsUndefined() and sm.hardwareDesignArchitecture.getErrorModelTypeH().oclIsUndefined()))
+	to
+		a : hiphops!Model(
+			system <- Sequence{sm.functionalDesignArchitecture.getErrorModelType(),sm.hardwareDesignArchitecture.getErrorModelTypeH()}
+			
+		)
+}
+
+
+--
+--rule StartOLD {
+--	from 
+--		sm : east!DesignLevel
+--	to
+--		a : hiphops!Model(
+--			system <- Sequence{s1,sm.hardwareDesignArchitecture.getErrorModelTypeH()}
+--		),		
+--		s1 : hiphops!System(
+--			name <- 'SW',
+--			component <- c1
+--		),
+--		c1 : hiphops!Component(
+--			name <- 'SW',
+--			implementation <- i1,
+--			ports <- Set{_ports1,_ports2}
+--		),
+--		_ports1: distinct hiphops!Port foreach (event in sm.functionalDesignArchitecture.getErrorModelType().getExternalFailure())(
+--			portType <- event.base_Port.name,
+--			name <- event.base_Port.name
+--		),
+--		_ports2: distinct hiphops!Port foreach (event in sm.functionalDesignArchitecture.getErrorModelType().getExternalFault())(
+--			portType <- event.base_Port.name,
+--			name <- event.base_Port.name
+--		),
+--		i1 : hiphops!Implementation(
+--			name <- 'SW',
+--			fData <- _fdata,
+--			system <- sm.functionalDesignArchitecture.getErrorModelType()
+--		),		
+--		_fdata : hiphops!FData(
+--			outputDeviations <- _outputDeviations, --Set{emp.type.description}
+--			basicEvents <- _basicEvents 
+--		),
+--		_basicEvents : hiphops!BasicEvents (
+-- 			basicEvent <- Set{_basicEvent1,_basicEvent2}
+--		),
+--		_basicEvent1 : distinct hiphops!BasicEvent foreach (iEE in sm.functionalDesignArchitecture.getErrorModelType().getInternalFault())(
+--			name <- iEE.getFaultName(),
+--			defaultString <- 'None {}'
+--		),
+--		_basicEvent2 : distinct hiphops!BasicEvent foreach (iEE in sm.functionalDesignArchitecture.getErrorModelType().getProcessFault())(
+--			name <- iEE.getFaultName(),
+--			defaultString <- 'None {}'
+--		),
+--		_outputDeviations : hiphops!OutputDeviations (
+--			outputDeviation <- _outputDeviation  
+--		),
+--		_outputDeviation : distinct hiphops!OutputDeviation foreach (o in sm.functionalDesignArchitecture.getErrorModelType().getErrorBehaviors())(
+--			name <- o.getLogicName(),
+--			defaultString <- o.getLogicExp(),
+--			systemOutPort <- true
+--		)
+--}
+		
+		-- HW from here on
+--		
+--		s2 : hiphops!System(
+--			name <- 'HW',
+--			component <- c2
+--		),
+--		c2 : hiphops!Component(
+--			name <- 'HW',
+--			implementation <- i1H,
+--			ports <- Set{_ports1H,_ports2H}
+--		),
+--		_ports1H: distinct hiphops!Port foreach (event in sm.hardwareDesignArchitecture.getErrorModelTypeH().getExternalFailure())(
+--			portType <- event.base_Port.name,
+--			name <- event.base_Port.name
+--		),
+--		_ports2H: distinct hiphops!Port foreach (event in sm.hardwareDesignArchitecture.getErrorModelTypeH().getExternalFault())(
+--			portType <- event.base_Port.name,
+--			name <- event.base_Port.name
+--		),
+--		i1H : hiphops!Implementation(
+--			name <- 'HW',
+--			fData <- _fdataH,
+--			system <- sm.hardwareDesignArchitecture.getErrorModelTypeH()
+--		),		
+--		_fdataH : hiphops!FData(
+--			outputDeviations <- _outputDeviationsH, --Set{emp.type.description}
+--			basicEvents <- _basicEventsH 
+--		),
+--		_basicEventsH : hiphops!BasicEvents (
+-- 			basicEvent <- Set{_basicEvent1H,_basicEvent2H}
+--		),
+--		_basicEvent1H : distinct hiphops!BasicEvent foreach (iEE in sm.hardwareDesignArchitecture.getErrorModelTypeH().getInternalFault())(
+--			name <- iEE.getFaultName(),
+--			defaultString <- 'None {}'
+--		),
+--		_basicEvent2H : distinct hiphops!BasicEvent foreach (iEE in sm.hardwareDesignArchitecture.getErrorModelTypeH().getProcessFault())(
+--			name <- iEE.getFaultName(),
+--			defaultString <- 'None {}'
+--		),
+--		_outputDeviationsH : hiphops!OutputDeviations (
+--			outputDeviation <- _outputDeviationH  
+--		),
+--		_outputDeviationH : hiphops!OutputDeviation(
+--			name <- sm.hardwareDesignArchitecture.getErrorModelTypeH().getLogicName(),
+--			defaultString <- sm.hardwareDesignArchitecture.getErrorModelTypeH().getLogicExp()
+--		)
+
+
+--helper context east!FailureOutPort def: printFO(modelType: east!ErrorModelType) : String =
+--	if (modelType.failure->includes(self)) then 
+--			-- local variable
+--			self.base_Port.name 			
+--		else
+--			-- get the prototypes corresponding to the connection ends
+--			if modelType.part->size() > 0 then 
+--				modelType.part->iterate(e; s:String='' |
+--				if e.type.failure->includes(self)  then
+--					if s = '' then 
+--						e.base_Property.name+'.'+self.base_Port.name
+--					else 
+--						s +',\r\n' + e.base_Property.name+'.'+self.base_Port.name 
+--					endif
+--				else
+--					s
+--				endif)
+--			else
+--				''
+--			endif
+--		endif;
+--
+--helper context east!FaultInPort def: printFI(modelType: east!ErrorModelType) : String =
+--	if (modelType.externalFault->includes(self)) then 
+--			-- local variable
+--			self.base_Port.name 			
+--		else
+--			-- get the prototypes corresponding to the connection ends
+--			if modelType.part->size() > 0 then 
+--				modelType.part->iterate(e; s:String='' |
+--				if e.type.externalFault->includes(self)  then
+--					if s = '' then 
+--						e.base_Property.name+'.'+self.base_Port.name
+--					else 
+--						s +',\r\n' + e.base_Property.name+'.'+self.base_Port.name 
+--					endif
+--				else
+--					s
+--				endif)
+--			else
+--				''
+--			endif
+--		endif;
+
+-- helper def : HW_EM : east!ErrorModelType = east!DesignLevel.allInstances()->first().hardwareDesignArchitecture.type;
+-- helper def : SW_EM : east!ErrorModelType = east!DesignLevel.allInstances()->first().functionalDesignArchitecture.type;
+-- helper context east!ErrorModelType def : isTopLevelSWErrorModelType() : Boolean = 
+--	self = east!DesignLevel.allInstances()->first().functionalDesignArchitecture.getErrorModelType();
+
+
+	
+--
+----rule recursiveErrorModelTypeRule2{
+----	from
+----		emt : east!FunctionType(
+----			not emt.base_Class.oclIsUndefined())
+----	to
+----		sys : hiphops!System(
+----			name <- emt.base_Class.name
+----		)
+----}
+--
+--helper context east!SystemModel def : getErrorModelPrototypeTypes() : Set(east!ErrorModelType) = 
+--	east!ErrorModelPrototype.allInstances()->collect(e|e.type);
+--
+--helper context east!SystemModel def : getToplevelErrorModelTypes() : Set(east!ErrorModelType) = 
+--	let ptt: Set(east!ErrorModelType) = self.getErrorModelPrototypeTypes() in 
+--	if(ptt.oclIsUndefined() or ptt.isEmpty()) then self.getErrorModelTypes()
+--	else self.getErrorModelTypes()->symmetricDifference(ptt)
+--	endif;
+--
+--helper context east!ErrorModelType def : isSWErrorModelType() : Boolean = 
+--	not self.target.oclIsUndefined();
+--
+--helper context east!ErrorModelType def : isHWErrorModelType() : Boolean = 
+--	not self.hwTarget.oclIsUndefined();
+--
+--helper context east!SystemModel def : getFDA() : east!DesignFunctionType= 
+--	self.DesignLevel.functionalDesignArchitecture;
+--
+--helper context east!SystemModel def : getToplevelSWErrorModelTypes() : Set(east!ErrorModelType) = 
+--	self.getErrorModelTypes()->select(e|e.target = self.designLevel.functionalDesignArchitecture);
+--
+--helper context east!SystemModel def : getToplevelHWErrorModelTypes() : Set(east!ErrorModelType) = 
+--	self.getToplevelErrorModelTypes()->select(e|e.isHWErrorModelType());
+--
+--
+--
+--
+--rule a {
+--	from 
+--		sm : east!DesignLevel
+--	to
+--		a : hiphops!Model(
+--			system <- Set{s1,s2}
+--		),
+--		s1 : hiphops!System(
+--			name <- 'SW'
+--		),		
+--		s2 : hiphops!System(
+--			name <- 'HW'
+--		)	
+--}
+
+
